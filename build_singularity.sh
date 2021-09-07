@@ -5,7 +5,7 @@ export GO_VERSION=1.16.4
 export SINGULARITY_VERSION=3.8.2
 export CPU_ARCH=$(uname -m)
 
-if [ $CPU_ARCH = "aarch64" ] 
+if [ $CPU_ARCH == 'aarch64' ] || [ $CPU_ARCH == 'arm64']
 then
     export PLATFORM=${OS}/arm64
     CONTAINER_NAME=singularity_arm

@@ -1,14 +1,11 @@
-ARG BASE_IMAGE
+FROM ubuntu:20.04
 
-FROM ${BASE_IMAGE}
+ENV BASE_IMAGE=ubuntu:20.04
+ENV OS=linux
+ENV SINGULARITY_VERSION=3.8.2
+ENV GO_VERSION=1.16.4
 
-ARG OS
-ARG BASE_IMAGE
-ARG PLATFORM
-ARG SINGULARITY_VERSION
-ARG GO_VERSION
-
-RUN echo "Running on ${OS}/${BASE_IMAGE}, building Singularity v${SINGULARITY_VERSION} for ${PLATFORM}"
+RUN echo "Running on ${OS}/${BASE_IMAGE}, building Singularity v${SINGULARITY_VERSION} for $(uname -p)"
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && apt-get install -y \
@@ -23,7 +20,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     git \
     cryptsetup
 
-RUN export ARCH=$(echo ${PLATFORM} | cut -f2 -d'/') && \
+RUN if [ $(uname -p) = "aarch64" ] ; then ARCH="arm64" ; else ARCH="amd64" ; fi && \
     export GO_ARCHIVE=go${GO_VERSION}.${OS}-${ARCH}.tar.gz && \
     wget https://dl.google.com/go/${GO_ARCHIVE} && \
     tar -C /usr/local -xzvf ${GO_ARCHIVE} && \
