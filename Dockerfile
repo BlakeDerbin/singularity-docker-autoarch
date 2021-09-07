@@ -20,7 +20,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     git \
     cryptsetup
 
-RUN if [ $(uname -p) = "aarch64" ] ; then ARCH="arm64" ; else ARCH="amd64" ; fi && \
+RUN if [ $(uname -p) = "aarch64" ] || [ $(uname -p) = "arm64" ] ; then ARCH="arm64" ; else ARCH="amd64" ; fi && \
     export GO_ARCHIVE=go${GO_VERSION}.${OS}-${ARCH}.tar.gz && \
     wget https://dl.google.com/go/${GO_ARCHIVE} && \
     tar -C /usr/local -xzvf ${GO_ARCHIVE} && \
