@@ -14,4 +14,4 @@ If you need to change these options you can use the flags available with the scr
 
 * sh build_automated.sh -u /home/user -s 3.8.3 -g 1.16.4
 
-If your user directory is **NOT /home/ubuntu** you will need to use the -u flag to specifiy the directory your user directory.
+If your user directory is **NOT /home/ubuntu** you will need to use the -u flag to specifiy the user directory.
