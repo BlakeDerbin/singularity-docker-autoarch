@@ -2,8 +2,9 @@ FROM ubuntu:20.04
 
 ENV BASE_IMAGE=ubuntu:20.04
 ENV OS=linux
-ENV SINGULARITY_VERSION=3.8.3
-ENV GO_VERSION=1.16.4
+
+ARG SINGULARITY_VERSION
+ARG GO_VERSION
 
 RUN echo "Running on ${OS}/${BASE_IMAGE}, building Singularity v${SINGULARITY_VERSION} for $(uname -p)"
 

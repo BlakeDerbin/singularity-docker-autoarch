@@ -3,8 +3,9 @@
 OS=linux
 SINGULARITY_VERSION=3.8.3
 DOCKER_BUILDX_VERSION=0.6.3
+GO_VERSION=1.16.4
 
-# Set your proxies here is needed
+# Set your proxies here if needed
 HTTP_PROXY=$http_proxy
 HTTPS_PROXY=$https_proxy
 
@@ -16,17 +17,18 @@ print_usage() {
         -u: user directory path i.e. /home/ubuntu  
         -s: Singularity version i.e. 3.8.3  
         -d: Docker buildx version i.e. 0.6.3
-        "
+        -g: GO version i.e. 1.16.4
+
+"
 }
 
 # Optional arguments for the script
-while getopts 'u:s:d:' flag; do
+while getopts 'u:s:d:g:' flag; do
   case "${flag}" in
     u) USER_DIR=$OPTARG ;;
     s) SINGULARITY_VERSION=$OPTARG ;;
     d) DOCKER_BUILDX_VERSION=$OPTARG ;;
-    h) print_usage
-        exit 1 ;;
+    g) GO_VERSION=$OPTARG ;;
     *) print_usage
        exit 1 ;;
   esac
@@ -73,8 +75,10 @@ echo "\nCreating docker container for singularity:v${SINGULARITY_VERSION} using 
 cd ${USER_DIR}${DOCKERFILE_DIR}
 docker buildx create --use --name builder
 docker buildx build \
+    --build-arg SINGULARITY_VERSION=${SINGULARITY_VERSION} \
+    --build-arg GO_VERSION=${GO_VERSION} \
     --build-arg http_proxy=${HTTP_PROXY} \
     --build-arg https_proxy=${HTTPS_PROXY} \
     -t singularity:${SINGULARITY_VERSION} \
     --platform ${PLATFORM} . --load
-#docker buildx rm builder
+docker buildx rm builder
