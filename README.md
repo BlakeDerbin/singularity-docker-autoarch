@@ -4,7 +4,7 @@ A dockerfile that creates a docker image of singularity based on the CPU archite
 
 ## Creating the image
 
-Current there a 2 ways to build this container based on what approach will work for you. If you are having issues building the file I suggest that you use the build_automated.sh script as it is based on **Docker Build** rather than the build_automated_build.sh as it is based on **Docker Buildx**. 
+Currently there a 2 ways to build this container based on what approach will work for you. If you are having issues building the file I suggest that you use the build_automated.sh script as it is based on **Docker Build** rather than the build_automated_build.sh as it is based on **Docker Buildx**. 
 
 The ideal way of creating this image is to execute the script build_automated.sh or build_automated_buildx.sh, this script by default will execute with the following options enabled if no arguments are provided:
 
