@@ -73,9 +73,7 @@ echo "\nCreating docker container: singularity:v${SINGULARITY_VERSION}, using Do
 
 # Creating the docker container for singularity using buildx
 cd ${USER_DIR}/${DOCKERFILE_DIR}
-docker buildx create \ 
-    --name singularity-builder \ 
-    --driver-opt network=host
+docker buildx create --name singularity-builder --driver-opt network=host
 docker buildx use singularity-builder
 docker buildx build \
     --build-arg http_proxy=${HTTP_PROXY} \
