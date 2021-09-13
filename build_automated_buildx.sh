@@ -65,8 +65,7 @@ if [ ! -f ${DOCKER_BUILDX_FILE}* ]
 then
     wget "https://github.com/docker/buildx/releases/download/v${DOCKER_BUILDX_VERSION}/${DOCKER_BUILDX_FILE}"
     chmod a+x ${USER_DIR}/.docker/cli-plugins/${DOCKER_BUILDX_FILE}
-    docker buildx install
-    echo "Docker buildx version: ${DOCKER_BUILDX_VERSION} installed"
+    echo "Docker Buildx version: ${DOCKER_BUILDX_VERSION} downloaded"
 fi
 
 echo "\nCreating docker container: singularity:v${SINGULARITY_VERSION}, using Docker Buildx on CPU architecture: ${PLATFORM} \n"
