@@ -29,10 +29,6 @@ while getopts 'u:s:d:g:' flag; do
     s) SINGULARITY_VERSION=$OPTARG ;;
     d) DOCKER_BUILDX_VERSION=$OPTARG ;;
     g) GO_VERSION=$OPTARG ;;
-    -) 
-        case ${OPTARG} in
-            "http"*) echo "http: ${OPTARG}" ;;
-        esac
     *) print_usage
        exit 1 ;;
   esac
