@@ -45,7 +45,9 @@ else
 fi
 
 echo "\nCreating docker container: singularity:v${SINGULARITY_VERSION}, using Docker Build on CPU architecture: ${PLATFORM} \n"
+
 # Creating the docker container for singularity using buildx
+cd ${USER_DIR}/${DOCKERFILE_DIR}
 docker build \
     --build-arg http_proxy=${HTTP_PROXY} \
     --build-arg https_proxy=${HTTPS_PROXY} \
