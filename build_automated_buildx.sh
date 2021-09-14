@@ -5,11 +5,7 @@ SINGULARITY_VERSION=3.8.3
 DOCKER_BUILDX_VERSION=0.6.3
 GO_VERSION=1.16.4
 
-# Set your proxies here if needed
-HTTP_PROXY=$http_proxy
-HTTPS_PROXY=$https_proxy
-
-USER_DIR=/home/ubuntu
+USER_DIR=/home/admin
 DOCKERFILE_DIR=/singularity-docker-autoarch
 
 print_usage() {
@@ -72,11 +68,11 @@ echo "\nCreating docker container: singularity:v${SINGULARITY_VERSION}, using Do
 
 # Creating the docker container for singularity using buildx
 cd ${USER_DIR}/${DOCKERFILE_DIR}
-docker buildx create --name singularity-builder --driver-opt network=host
+docker buildx create --driver-opt env.http_proxy=$http_proxy --driver-opt env.https_proxy=$https_proxy --driver-opt '"env.no_proxy='$no_proxy'"' --driver-opt network=host --name singularity-builder
 docker buildx use singularity-builder
 docker buildx build \
-    --build-arg http_proxy=${HTTP_PROXY} \
-    --build-arg https_proxy=${HTTPS_PROXY} \
+    --build-arg http_proxy=$http_proxy \
+    --build-arg https_proxy=$https_proxy \
     --build-arg SINGULARITY_VERSION=${SINGULARITY_VERSION} \
     --build-arg GO_VERSION=${GO_VERSION} \
     -t singularity:${SINGULARITY_VERSION} \
