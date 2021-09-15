@@ -9,25 +9,26 @@ USER_DIR=/home/admin
 DOCKERFILE_DIR=/singularity-docker-autoarch
 
 print_usage() {
-  printf " Usage:
-        -u: user directory path 
-            -u /home/ubuntu  
-        -s: Singularity version 
-            -s 3.8.3  
-        -d: Docker buildx version 
-            -d 0.6.3
-        -g: GO version 
-            -g 1.16.4
-        -o: Additional Architectures you wish to build in, must follow this format: 
-            -o linux/arm64,linux/arm/v7 
-        -a Dockerhub account, for pushing images to dockerhub
-            -a dockerhubAccount1
+  printf "Script usage:
+
+    -u: user directory path 
+        -u /home/ubuntu  
+    -s: Singularity version 
+        -s 3.8.3  
+    -d: Docker buildx version 
+        -d 0.6.3
+    -g: GO version 
+        -g 1.16.4
+    -o: Additional Architectures you wish to build in, must follow this format: 
+        -o linux/arm64,linux/arm/v7 
+    -a Dockerhub account, for pushing images to dockerhub
+        -a dockerhubAccount1
 
 "
 }
 
 # Optional arguments for the script
-while getopts 'u:s:d:g:a:o:' flag; do
+while getopts 'u:s:d:g:a:o:h' flag; do
   case "${flag}" in
     u) USER_DIR=$OPTARG ;;
     s) SINGULARITY_VERSION=$OPTARG ;;
@@ -35,7 +36,9 @@ while getopts 'u:s:d:g:a:o:' flag; do
     g) GO_VERSION=$OPTARG ;;
     o) ADDITIONAL_ARCH=$OPTARG ;;
     a) DOCKERHUB_ACCOUNT=$OPTARG ;;
-    *) print_usage
+    h) print_usage
+       exit 1 ;;
+    *) printf "\nInvalid option, use '-h' to see available options\n"
        exit 1 ;;
   esac
 done
